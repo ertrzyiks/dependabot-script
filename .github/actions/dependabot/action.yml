@@ -16,11 +16,21 @@ runs:
   steps:
      - name: Checkout repo
        uses: actions/checkout@v3
+       with:
+        repository: ${{ inputs.repo }}
+        token: ${{ github.token }}
+        path: src
+     - name: Checkout this repo
+       uses: actions/checkout@v3
+       with:
+         path: self
      - name: Build image
+       shell: bash
        run: |
-        cd .github/actions/dependabot
+        cd self/.github/actions/dependabot
         docker build -t "dependabot/dependabot-script" -f Dockerfile .
       - name: Run dependabot
+        shell: bash
         env:
           PROJECT_PATH: ${{ inputs.repo }}
           DIRECTORY: /
