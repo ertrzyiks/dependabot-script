@@ -1,0 +1,21 @@
+name: 'Dependabot check'
+description: ''
+inputs:
+  token:
+    description: ''
+    required: true
+  repo:
+    description: 'Reference date'
+    required: true
+  packages:
+    description: 'Repository name'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    PROJECT_PATH: ${{ inputs.repo }}
+    DIRECTORY: /
+    GITHUB_ACCESS_TOKEN: ${{ inputs.token }}
+    PACKAGES_TO_CHECK: ${{ inputs.packages }}
