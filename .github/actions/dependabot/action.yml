@@ -33,8 +33,8 @@ runs:
        shell: bash
        env:
         PROJECT_PATH: ${{ inputs.repo }}
-        DIRECTORY: /
+        DIRECTORY: /src/src
         GITHUB_ACCESS_TOKEN: ${{ github.token }}
         PACKAGES_TO_CHECK: ${{ inputs.packages }}
        run: |
-        docker run -v $PWD:/src -e PROJECT_PATH=$PROJECT_PATH -e DIRECTORY=$DIRECTORY -e PACKAGES_TO_CHECK=$PACKAGES_TO_CHECK -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN -e  dependabot/dependabot-script
+        docker run -v $PWD:/src -e PROJECT_PATH=$PROJECT_PATH -e DIRECTORY=$DIRECTORY -e PACKAGES_TO_CHECK=$PACKAGES_TO_CHECK -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN  dependabot/dependabot-script
