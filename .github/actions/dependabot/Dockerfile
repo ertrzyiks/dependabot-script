@@ -6,9 +6,8 @@ ARG CODE_DIR=/home/dependabot/dependabot-script
 ARG BUNDLE_USER_HOME=/home/bundle
 RUN mkdir -p /home
 RUN chown dependabot:dependabot /home
-RUN mkdir -p ${CODE_DIR}
-RUN mkdir -p ${BUNDLE_USER_HOME}
-RUN chown dependabot:dependabot ${BUNDLE_USER_HOME}
+RUN mkdir -p ${CODE_DIR} && chown dependabot:dependabot ${CODE_DIR}
+RUN mkdir -p ${BUNDLE_USER_HOME} && chown dependabot:dependabot ${BUNDLE_USER_HOME}
 
 USER dependabot
 
