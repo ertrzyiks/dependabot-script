@@ -9,12 +9,16 @@ RUN chown dependabot:dependabot /home
 RUN mkdir -p ${CODE_DIR}
 RUN mkdir -p ${BUNDLE_USER_HOME}
 RUN chown dependabot:dependabot ${BUNDLE_USER_HOME}
-COPY Gemfile Gemfile.lock ${CODE_DIR}/
+
+USER dependabot
+
+COPY --chown=dependabot:dependabot Gemfile Gemfile.lock ${CODE_DIR}/
+
 WORKDIR ${CODE_DIR}
 
 RUN bundle config set --local path "vendor" \
   && bundle install --jobs 4 --retry 3
 
-COPY generic-update-script.rb ${CODE_DIR}
+COPY --chown=dependabot:dependabot generic-update-script.rb ${CODE_DIR}
 
 CMD ["bundle", "exec", "ruby", "./generic-update-script.rb"]
