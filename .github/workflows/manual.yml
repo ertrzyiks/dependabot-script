@@ -19,6 +19,6 @@ jobs:
     - name: Check for updates
       uses: ./.github/actions/dependabot
       with:
-        token: ${{ github.token }}
+        token: ${{ secrets.PAT }}
         repo: ertrzyiks/graph-utils
         packages: lerna
