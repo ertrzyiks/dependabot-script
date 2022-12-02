@@ -8,6 +8,7 @@ RUN mkdir -p /home
 RUN chown dependabot:dependabot /home
 RUN mkdir -p ${CODE_DIR}
 RUN mkdir -p ${BUNDLE_USER_HOME}
+RUN chown dependabot:dependabot ${BUNDLE_USER_HOME}
 COPY Gemfile Gemfile.lock ${CODE_DIR}/
 WORKDIR ${CODE_DIR}
 
