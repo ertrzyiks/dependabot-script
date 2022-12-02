@@ -19,11 +19,12 @@ runs:
        with:
         repository: ${{ inputs.repo }}
         token: ${{ github.token }}
-        path: src
+        path: project
      - name: Checkout this repo
        uses: actions/checkout@v3
        with:
          path: self
+         ref: accept-package-names
      - name: Build image
        shell: bash
        run: |
@@ -33,7 +34,7 @@ runs:
        shell: bash
        env:
         PROJECT_PATH: ${{ inputs.repo }}
-        DIRECTORY: /src/src
+        DIRECTORY: /src/project
         GITHUB_ACCESS_TOKEN: ${{ github.token }}
         PACKAGES_TO_CHECK: ${{ inputs.packages }}
        run: |
