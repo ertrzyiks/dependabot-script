@@ -1,5 +1,7 @@
 FROM dependabot/dependabot-core:0.209.0
 
+USER root
+
 ARG CODE_DIR=/home/dependabot/dependabot-script
 ARG BUNDLE_USER_HOME=/home/bundle
 RUN mkdir -p /home
