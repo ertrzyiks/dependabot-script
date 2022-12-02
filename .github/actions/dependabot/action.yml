@@ -1,0 +1,41 @@
+name: 'Dependabot check'
+description: ''
+inputs:
+  token:
+    description: ''
+    required: true
+  repo:
+    description: 'Reference date'
+    required: true
+  packages:
+    description: 'Repository name'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+     - name: Checkout repo
+       uses: actions/checkout@v3
+       with:
+        repository: ${{ inputs.repo }}
+        token: ${{ inputs.token }}
+        path: project
+     - name: Checkout this repo
+       uses: actions/checkout@v3
+       with:
+         path: self
+         ref: accept-package-names
+     - name: Build image
+       shell: bash
+       run: |
+        cd self/.github/actions/dependabot
+        docker build -t "dependabot/dependabot-script" -f Dockerfile .
+     - name: Run dependabot
+       shell: bash
+       env:
+        PROJECT_PATH: ${{ inputs.repo }}
+        DIRECTORY: /src/project
+        GITHUB_ACCESS_TOKEN: ${{ inputs.token }}
+        PACKAGES_TO_CHECK: ${{ inputs.packages }}
+       run: |
+        docker run -v $PWD:/src -e PROJECT_PATH=$PROJECT_PATH -e DIRECTORY=$DIRECTORY -e PACKAGES_TO_CHECK=$PACKAGES_TO_CHECK -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN  dependabot/dependabot-script
