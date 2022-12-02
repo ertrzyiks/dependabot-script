@@ -2,6 +2,8 @@ FROM dependabot/dependabot-core:0.209.0
 
 ARG CODE_DIR=/home/dependabot/dependabot-script
 ARG BUNDLE_USER_HOME=/home/bundle
+RUN mkdir -p /home
+RUN chown dependabot:dependabot /home
 RUN mkdir -p ${CODE_DIR}
 RUN mkdir -p ${BUNDLE_USER_HOME}
 COPY Gemfile Gemfile.lock ${CODE_DIR}/
