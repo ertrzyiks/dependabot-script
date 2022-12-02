@@ -24,7 +24,7 @@ runs:
        uses: actions/checkout@v3
        with:
          path: self
-         ref: accept-package-names
+         ref: ${{ github.ref }}
      - name: Build image
        shell: bash
        run: |
