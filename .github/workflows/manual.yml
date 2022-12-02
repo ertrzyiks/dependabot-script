@@ -25,10 +25,8 @@ jobs:
         docker build -t "dependabot/dependabot-script" -f Dockerfile .
     - name: Run dependabot
       env:
-        # Options can turn on extra features (not required)
-        OPTIONS: |
-           { "kubernetes_updates": true }
         GITHUB_ACCESS_TOKEN: ${{ github.token }}
         PROJECT_PATH: ertrzyiks/graph-utils
+        PACKAGES_TO_CHECK: lerna
       run: |
-        docker run -v $PWD:/src -e PROJECT_PATH=$PROJECT_PATH -e DIRECTORY=/ -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN -e OPTIONS="$OPTIONS" dependabot/dependabot-script
+        docker run -v $PWD:/src -e PROJECT_PATH=$PROJECT_PATH -e DIRECTORY=/ -e GITHUB_ACCESS_TOKEN=$GITHUB_ACCESS_TOKEN -ePACKAGES_TO_CHECK=$PACKAGES_TO_CHECK -e OPTIONS="$OPTIONS" dependabot/dependabot-script
