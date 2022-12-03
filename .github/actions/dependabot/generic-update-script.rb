@@ -134,8 +134,9 @@ dependencies.select{ |d| dependency_names.include?(d.name) }.each do |dep|
   ########################################
   # Create a pull request for the update #
   ########################################
-  assignee = (ENV["PULL_REQUESTS_ASSIGNEE"] || ENV["GITLAB_ASSIGNEE_ID"])&.to_i
+  assignee = ENV["PULL_REQUESTS_ASSIGNEE"]
   assignees = assignee ? [assignee] : assignee
+  pr_message_header = 'This is a **custom** PR\n'
   pr_creator = Dependabot::PullRequestCreator.new(
     source: source,
     base_commit: commit,
@@ -143,8 +144,9 @@ dependencies.select{ |d| dependency_names.include?(d.name) }.each do |dep|
     files: updated_files,
     credentials: credentials,
     assignees: assignees,
-    author_details: { name: "Dependabot", email: "no-reply@github.com" },
-    label_language: true,
+    pr_message_header: pr_message_header,
+    pr_message_footer: 'Good day',
+    author_details: { name: "Dependabot", email: "no-reply@github.com" }
   )
   pull_request = pr_creator.create
   puts " submitted"
