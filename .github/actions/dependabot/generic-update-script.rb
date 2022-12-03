@@ -143,8 +143,7 @@ dependencies.select{ |d| dependency_names.include?(d.name) }.each do |dep|
     files: updated_files,
     credentials: credentials,
     assignees: assignees,
-    author_details: { name: "Dependabot", email: "no-reply@github.com" },
-    label_language: true,
+    author_details: { name: "Dependabot", email: "no-reply@github.com" }
   )
   pull_request = pr_creator.create
   puts " submitted"
