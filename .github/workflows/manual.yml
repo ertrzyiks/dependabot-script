@@ -2,15 +2,18 @@ name: ManualDependabot
 
 on:
   workflow_dispatch:
-
-permissions:
-  contents: read
+    inputs:
+      repo:
+        description: 'Repository name'
+        default: 'ertrzyiks/graph-utils'
+        required: true
+      packages:
+        description: 'Packages to check'
+        required: true
+        default: '@toptal/picasso'
 
 jobs:
   dependabot:
-    permissions:
-      contents: write  # for Git to git push
-      pull-requests: write  # for repo-sync/pull-request to create pull requests
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
@@ -20,5 +23,5 @@ jobs:
       uses: ./.github/actions/dependabot
       with:
         token: ${{ secrets.PAT }}
-        repo: ertrzyiks/graph-utils
-        packages: lerna
+        repo: ${{ inputs.repo }}
+        packages: ${{ inputs.packages }}
