@@ -1,0 +1,26 @@
+name: AutomatedDependabot
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: 'Packages to check'
+        required: true
+        default: '@toptal/picasso'
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo: [ertrzyiks/graph-utils]
+    steps:
+     - name: Checkout repo
+       uses: actions/checkout@v3
+
+     - name: Check for updates
+       uses: ./.github/actions/dependabot
+       with:
+         token: ${{ secrets.PAT }}
+         repo: ${{ matrix.version }}
+         packages: ${{ inputs.packages }}
