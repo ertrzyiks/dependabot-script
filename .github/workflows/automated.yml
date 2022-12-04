@@ -22,5 +22,5 @@ jobs:
        uses: ./.github/actions/dependabot
        with:
          token: ${{ secrets.PAT }}
-         repo: ${{ matrix.version }}
+         repo: ${{ matrix.repo }}
          packages: ${{ inputs.packages }}
