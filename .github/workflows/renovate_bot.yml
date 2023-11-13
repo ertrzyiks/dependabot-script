@@ -1,0 +1,20 @@
+name: ManualRenovate
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Repository name'
+        default: 'ertrzyiks/graph-utils'
+        required: true
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.0.0
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v32.238.4
+        with:
+          configurationFile: example/renovate-config.js
+          token: ${{ secrets.PAT }}

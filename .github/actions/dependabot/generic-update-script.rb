@@ -136,6 +136,8 @@ dependencies.select{ |d| dependency_names.include?(d.name) }.each do |dep|
   ########################################
   assignee = (ENV["PULL_REQUESTS_ASSIGNEE"] || ENV["GITLAB_ASSIGNEE_ID"])&.to_i
   assignees = assignee ? [assignee] : assignee
+  pr_message_header = 'This PR was created on demand'
+
   pr_creator = Dependabot::PullRequestCreator.new(
     source: source,
     base_commit: commit,
@@ -143,6 +145,7 @@ dependencies.select{ |d| dependency_names.include?(d.name) }.each do |dep|
     files: updated_files,
     credentials: credentials,
     assignees: assignees,
+    pr_message_header: pr_message_header,
     author_details: { name: "Dependabot", email: "no-reply@github.com" }
   )
   pull_request = pr_creator.create
